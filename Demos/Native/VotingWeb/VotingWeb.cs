@@ -5,18 +5,18 @@
 
 namespace VotingWeb
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Fabric;
-    using System.IO;
-    using System.Net.Http;
+    using Microsoft.ApplicationInsights.Extensibility;
+    using Microsoft.ApplicationInsights.ServiceFabric;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.ServiceFabric.Services.Communication.AspNetCore;
     using Microsoft.ServiceFabric.Services.Communication.Runtime;
     using Microsoft.ServiceFabric.Services.Runtime;
-    using Microsoft.ApplicationInsights.Extensibility;
-    using Microsoft.ApplicationInsights.ServiceFabric;
+    using System;
+    using System.Collections.Generic;
+    using System.Fabric;
+    using System.IO;
+    using System.Net.Http;
 
     /// <summary>
     /// The FabricRuntime creates an instance of this class for each service type instance. 
@@ -52,7 +52,8 @@ namespace VotingWeb
                                             .AddSingleton<HttpClient>(new HttpClient())
                                             .AddSingleton<FabricClient>(new FabricClient())
                                             .AddSingleton<StatelessServiceContext>(serviceContext)
-                                            .AddSingleton<ITelemetryInitializer>((serviceProvider) => FabricTelemetryInitializerExtension.CreateFabricTelemetryInitializer(serviceContext)))
+                                            .AddSingleton<ITelemetryInitializer>((serviceProvider) => FabricTelemetryInitializerExtension.CreateFabricTelemetryInitializer(serviceContext))
+                                            .AddSingleton<IStatelessServicePartition>(Partition))
                                     .UseContentRoot(Directory.GetCurrentDirectory())
                                     .UseStartup<Startup>()
                                     .UseApplicationInsights()
@@ -73,5 +74,7 @@ namespace VotingWeb
         {
             return new Uri($"{context.CodePackageActivationContext.ApplicationName}/polls/{poll}");
         }
+
     }
+
 }

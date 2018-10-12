@@ -20,6 +20,15 @@
                                     AzureActiveDirectory="true"
                                     ServerCertThumbprint="0123456789012345678901234567890123456789" />
   -->
-  <ClusterConnectionParameters />
+  <ClusterConnectionParameters ConnectionEndpoint="cloudbrew.westeurope.cloudapp.azure.com:19000"
+                               X509Credential="true"
+                               ServerCertThumbprint="560D6ECE1B7970733C6D51FDA3628216714DA374"
+                               FindType="FindByThumbprint"
+                               FindValue="560D6ECE1B7970733C6D51FDA3628216714DA374"
+                               StoreLocation="CurrentUser"
+                               StoreName="My" />
   <ApplicationParameterFile Path="..\ApplicationParameters\Cloud.xml" />
+  <UpgradeDeployment Mode="Monitored" Enabled="true">
+    <Parameters FailureAction="Rollback" Force="True" />
+  </UpgradeDeployment>
 </PublishProfile>

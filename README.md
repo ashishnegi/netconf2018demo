@@ -1,2 +1,2 @@
-# netconf2018demo
-Demo from .NET Conf 2018
+# CloudBrew October 2018
+This branch contains the code from my CloudBrew talk - October 2018
